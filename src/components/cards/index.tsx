@@ -9,11 +9,11 @@ const Cards: React.FC<PropsItem> = ({ item }) => {
   return (
     <div className={styles.container}>
       <img
-        src={`${GetImages(item.poster_path)}`}
+        src={`${GetImages(item.poster_path || item.profile_path)}`}
         alt={item.title}
         className={styles.image}
       />
-      <h2 className={styles.title}>{item.original_title}</h2>
+      <h2 className={styles.title}>{item.title || item.name}</h2>
     </div>
   );
 };

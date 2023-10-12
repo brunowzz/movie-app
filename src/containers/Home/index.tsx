@@ -20,6 +20,8 @@ interface Movie {
 const Home: React.FC = () => {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [topMovies, setTopMovies] = useState();
+  const [topSeries, setTopSeries] = useState();
+  const [topPeople, setTopPeople] = useState();
 
   const getMovie = async () => {
     const {
@@ -35,12 +37,30 @@ const Home: React.FC = () => {
     } = await api.get("/movie/top_rated");
 
     setTopMovies(results);
+  };
+
+  const getPopularSerie = async () => {
+    const {
+      data: { results },
+    } = await api.get("/tv/popular");
+
+    setTopSeries(results);
     console.log(results);
+  };
+
+  const getPopularPeople = async () => {
+    const {
+      data: { results },
+    } = await api.get("/person/popular");
+
+    setTopPeople(results);
   };
 
   useEffect(() => {
     getMovie();
     getPopularMovie();
+    getPopularSerie();
+    getPopularPeople();
   }, []);
 
   return (
@@ -90,6 +110,10 @@ const Home: React.FC = () => {
       )}
 
       {topMovies && <Slider title="Top Filmes" info={topMovies} />}
+
+      {topSeries && <Slider title="Top Séries" info={topSeries} />}
+
+      {topPeople && <Slider title="Top Pessoas" info={topPeople} />}
     </>
   );
 };

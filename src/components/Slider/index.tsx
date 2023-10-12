@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import styles from "./style.module.scss";
+import "./style.scss";
+import Cards from "../Cards";
 
 interface SliderProps {
   info: string[];
@@ -7,20 +8,15 @@ interface SliderProps {
 }
 
 const Slider: React.FC<SliderProps> = ({ info, title }) => {
-  console.log(info, title);
-
   return (
-    <div>
-      <h2>{title}</h2>
-      <Swiper
-        grabCursor
-        spaceBetween={10}
-        slidesPerView={"auto"}
-        className={styles.swiper}
-      >
+    <div className="container">
+      <h2 className="titleSlide">{title}</h2>
+      <Swiper grabCursor spaceBetween={10} slidesPerView={"auto"}>
         {info.map((item, index) => (
           <SwiperSlide key={index}>
-            <div style={{ color: "white" }}>{item.original_title}</div>
+            <div>
+              <Cards item={item} />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
