@@ -1,0 +1,13 @@
+@mixin radius($radius) {
+  border-radius: $raio;
+}
+
+@mixin font-opacity {
+  opacity: 0.8;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
