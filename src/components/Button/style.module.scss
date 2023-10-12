@@ -1,0 +1,21 @@
+@use "../../styles/mixin.scss" as mixin;
+@use "../../styles/variables.scss" as variables;
+
+.buttonClass {
+  width: 200px;
+  height: 50px;
+  background: transparent;
+  @include mixin.radius(10px);
+  border: 2px solid variables.$terciary-color;
+  font-size: 18px;
+  font-weight: 500;
+  color: variables.$primary-color;
+  cursor: pointer;
+  transition: 1 ease-in-out;
+  @include mixin.shadow;
+}
+
+.buttonClass:hover {
+  background: variables.$terciary-color;
+  border: none;
+}

@@ -1,0 +1,62 @@
+@use "../../styles/mixin.scss" as mixin;
+@use "../../styles/variables.scss" as variables;
+
+.background {
+  @include mixin.center;
+  position: relative;
+  color: variables.$primary-color;
+}
+
+.container {
+  @include mixin.center;
+  z-index: 2;
+  gap: 100px;
+}
+
+.background::before {
+  content: "";
+  width: 100%;
+  height: 90vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.infoMovie {
+  width: 626px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.realeaseContainer {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.boxRealease {
+  @include mixin.center;
+  gap: 10px;
+}
+
+.realease {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.overview {
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.poster {
+  width: 400px;
+  height: 500px;
+  @include mixin.radius(20px);
+  aspect-ratio: 9 / 16;
+}

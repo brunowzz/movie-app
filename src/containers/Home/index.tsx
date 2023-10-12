@@ -1,9 +1,96 @@
-const Home = () => {
+import { useState, useEffect } from "react";
+import api from "../../services/api";
+import styles from "./style.module.scss";
+
+import CustomIcon from "../../components/CustomIcon";
+import Button from "../../components/Button";
+import Slider from "../../components/Slider";
+import GetImages from "../../utils/getImage";
+
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  backdrop_path: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: string;
+}
+
+const Home: React.FC = () => {
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [topMovies, setTopMovies] = useState();
+
+  const getMovie = async () => {
+    const {
+      data: { results },
+    } = await api.get("/movie/popular");
+
+    setMovie(results[0]);
+  };
+
+  const getPopularMovie = async () => {
+    const {
+      data: { results },
+    } = await api.get("/movie/top_rated");
+
+    setTopMovies(results);
+    console.log(results);
+  };
+
+  useEffect(() => {
+    getMovie();
+    getPopularMovie();
+  }, []);
+
   return (
-    <div>
-      <h1>Home Page</h1>
-      <h2>Essa é a home</h2>
-    </div>
+    <>
+      {movie && (
+        <section
+          className={styles.background}
+          style={{
+            background: `url(${GetImages(
+              movie.backdrop_path
+            )}) no-repeat center center fixed`,
+            backgroundSize: "cover",
+            width: "100%",
+            height: "90vh",
+          }}
+        >
+          <div className={styles.container}>
+            <div className={styles.infoMovie}>
+              <h1 className={styles.title}>{movie.title}</h1>
+
+              <div className={styles.realeaseContainer}>
+                <span className={styles.boxRealease}>
+                  <CustomIcon icon="calendar" size="24px" color="#fff" />
+                  <p className={styles.realease}>{movie.release_date}</p>
+                </span>
+
+                <span className={styles.boxRealease}>
+                  <CustomIcon icon="star" size="24px" color="#fff" />
+                  <p className={styles.realease}>{movie.vote_average}</p>
+                </span>
+              </div>
+
+              <h2 className={styles.overview}>{movie.overview}</h2>
+
+              <Button />
+            </div>
+
+            <figure className={styles.posterBox}>
+              <img
+                className={styles.poster}
+                src={`${GetImages(movie.poster_path)}`}
+                alt={movie.title}
+              />
+            </figure>
+          </div>
+        </section>
+      )}
+
+      {topMovies && <Slider title="Top Filmes" info={topMovies} />}
+    </>
   );
 };
 
